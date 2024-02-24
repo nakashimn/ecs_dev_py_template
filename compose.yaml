@@ -7,8 +7,8 @@ services:
       args:
         GIT_USERNAME: ${GIT_USERNAME}
         GIT_EMAIL_ADDRESS: ${GIT_EMAIL_ADDRESS}
-    container_name: ecs_dev_template
-    hostname: ecs_dev_template
+    container_name: ecs_dev_py_template
+    hostname: ecs_dev_py_template
     shm_size: '4gb'
     volumes:
       - $PWD/:/workspace:cached
