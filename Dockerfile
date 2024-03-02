@@ -33,6 +33,22 @@ RUN git config --global user.name ${GIT_USERNAME}
 RUN git config --global user.email ${GIT_EMAIL_ADDRESS}
 
 ################################################################################
+# testing
+################################################################################
+FROM python:3.12-slim as test
+
+ENV TZ Asia/Tokyo
+
+COPY --from=builder /usr/local/bin /usr/local/bin
+COPY --from=builder /usr/local/lib /usr/local/lib
+RUN pip install --no-cache-dir pytest
+
+COPY ./app/src /app/src
+COPY ./app/assets /app/assets
+COPY ./app/test /app/test
+CMD ["python", "pytest"]
+
+################################################################################
 # production
 ################################################################################
 FROM python:3.12-slim as prod
@@ -42,5 +58,6 @@ ENV TZ Asia/Tokyo
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /usr/local/lib /usr/local/lib
 
-COPY ./app /workspace/app
+COPY ./app/src /app/src
+COPY ./app/assets /app/assets
 CMD ["echo", "app is running correctly."]
