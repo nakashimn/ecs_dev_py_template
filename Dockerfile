@@ -46,7 +46,7 @@ RUN pip install --no-cache-dir pytest
 COPY ./app/src /app/src
 COPY ./app/assets /app/assets
 COPY ./app/test /app/test
-CMD ["python", "pytest"]
+CMD ["pytest"]
 
 ################################################################################
 # production
