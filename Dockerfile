@@ -15,9 +15,6 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 ################################################################################
 FROM python:3.12-slim as dev
 
-ARG GIT_USERNAME
-ARG GIT_EMAIL_ADDRESS
-
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /usr/local/lib /usr/local/lib
 
@@ -29,8 +26,6 @@ COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.dev.txt
 
 RUN git config --global --add safe.directory /workspace
-RUN git config --global user.name ${GIT_USERNAME}
-RUN git config --global user.email ${GIT_EMAIL_ADDRESS}
 
 ################################################################################
 # testing
